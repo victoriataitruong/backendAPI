@@ -1,20 +1,24 @@
-// Require express
+//require express
 const express = require("express");
-// Initialize express
+
+//initialize express
 const app = express();
 const PORT = 8080;
-// parse JSON
+
+//parse JSON
 app.use(express.json());
-// parse URL encoded data
+
+//parse URL encoded data
 app.use(express.urlencoded({
     extended: true
 }));
-// create a server
+
+//create a server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-// defining users
+//defining users
 const users = [{
     id: 1,
     name: "Jane Doe",
@@ -25,7 +29,8 @@ const users = [{
     name: "John Doe",
     age: "31",
     }];
-//POST call / create user
+
+//create a user
 app.post("/create", (req, res) => {
     // Check if request body is empty
     if (!Object.keys(req.body).length) {
@@ -60,6 +65,7 @@ app.post("/create", (req, res) => {
     }
 });
 
+//get all users
 app.get("/users", (req, res) => {
     try {
         res.status(200).json({
@@ -72,6 +78,7 @@ app.get("/users", (req, res) => {
     }
 });
 
+//get a specific user
 app.get("/users/:userID", (req, res) => {
     const id = parseInt(req.params.userID);
     console.log(id);
@@ -92,6 +99,7 @@ app.get("/users/:userID", (req, res) => {
     }
 });
 
+//updating a user
 app.put("/users/:userID", (req, res) => {
     try {
         const id = parseInt(req.params.userID);
@@ -115,6 +123,7 @@ app.put("/users/:userID", (req, res) => {
     }
 });
 
+//deleting a specific user
 app.delete("/users/:userID", (req, res) => {
     try {
         const id = req.params.userID;
@@ -136,6 +145,7 @@ app.delete("/users/:userID", (req, res) => {
     }
 });
 
+//deleting all users
 app.delete("/users", (req, res) => {
     try {
         users.splice(0, users.length);
